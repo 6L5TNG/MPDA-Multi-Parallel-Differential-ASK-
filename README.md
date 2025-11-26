@@ -4,6 +4,11 @@
 
 This repository contains the core Python implementation (`mpda_core.py`) of the modem engine, featuring a **Phase-Continuous Hard Keying** transmitter and a **Matched Filter (Correlation)** receiver.
 
+**Current Version: 4.1.0**
+*   Fixed synchronization timing issues for 5Hz/15Hz modes.
+*   Implemented proper de-interleaving logic for multi-track data reconstruction.
+*   Improved buffer management to prevent data loss during sync locking.
+
 ## Key Features
 
 *   **Robust Modulation:** Uses **AFSK-based Multi-tone ASK**. Unlike traditional FSK, MPDA utilizes amplitude states across multiple parallel carriers, providing high spectral efficiency.
@@ -27,11 +32,12 @@ This repository contains the core Python implementation (`mpda_core.py`) of the 
 
 ### Signal Structure
 1.  **Pilot Tone:** A 2200 Hz tone precedes the data burst to wake up the receiver and establish AGC/timing lock.
-2.  **Preamble:** Three bytes of `0xAA` are sent for bit synchronization.
-3.  **Payload:** Text data is encoded into bit streams and mapped onto parallel frequency tracks.
+2.  **Gap:** A fixed silence period (0.15s) separates the pilot and data burst.
+3.  **Preamble:** Three bytes of `0xAA` are sent for bit synchronization.
+4.  **Payload:** Text data is encoded into bit streams and mapped onto parallel frequency tracks.
     *   **Logic 1:** High Amplitude (1.0)
     *   **Logic 0:** Soft-Low Amplitude (0.1) - *Maintains PLL lock without losing phase.*
-4.  **Postamble:** Three bytes of `0xFF` signal the end of transmission.
+5.  **Postamble:** Three bytes of `0xFF` signal the end of transmission.
 
 ## Installation
 
@@ -67,10 +73,7 @@ audio_signal = tx.generate_signal(message, tracks=4, speed=10)
 from mpda_core import MPDAReceiver
 
 # Initialize
-rx = MPDAReceiver()
-
-# Configure Mode (Must match TX settings)
-rx.configure(tracks=4, speed=10)
+rx = MPDAReceiver(tracks=4, speed=10)
 
 # Feed audio chunks (from microphone input)
 # 'chunk' should be a numpy array of float samples
@@ -86,11 +89,11 @@ if char:
 ## License
 
 This project is open-source software.
-Copyright (c) 2024 **6L5TNG (Kang Han)**.
+Copyright (c) 2024-2025 **6L5TNG (Kang Han) & Community Contributors**.
 
 ## Contact
 
 *   **Callsign:** 6L5TNG
 *   **Developer:** Kang Han (Republic of Korea)
 
-## "PS: I'm a beginner, so contributions are welcome!"
+PS: I'm a beginner, so contributions are welcome!
