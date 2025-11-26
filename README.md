@@ -89,11 +89,13 @@ if char:
 ## License
 
 This project is open-source software.
-Copyright (c) 2024-2025 **6L5TNG (Kang Han) & Community Contributors**.
+Copyright (c) 2025 **6L5TNG (Kang Han) & Community Contributors**.
 
 ## Contact
 
-*   **Callsign:** 6L5TNG
-*   **Developer:** Kang Han (Republic of Korea)
+* **Callsign:** 6L5TNG  
+* **Developer:** Kang Han (Republic of Korea)  
+* **Email:** ies0812@icloud.com  
+* **QRZ Page:** https://www.qrz.com/db/6L5TNG
 
 PS: I'm a beginner, so contributions are welcome!
