@@ -92,3 +92,5 @@ Copyright (c) 2024 **6L5TNG (Kang Han)**.
 
 *   **Callsign:** 6L5TNG
 *   **Developer:** Kang Han (Republic of Korea)
+
+## "PS: I'm a beginner, so contributions are welcome!"
