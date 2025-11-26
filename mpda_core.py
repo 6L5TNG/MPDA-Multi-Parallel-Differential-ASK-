@@ -1,6 +1,6 @@
 """
 MPDA (Multi-Parallel Differential ASK) Protocol Library
-Copyright (c) 2024 6L5TNG (Kang Han). All rights reserved.
+Copyright (c) 2025 6L5TNG (Kang Han). All rights reserved.
 
 This library provides the core modulation and demodulation engines for the MPDA protocol.
 Verified Version: 1.0.1 (Stable)
