@@ -48,13 +48,15 @@ def generate_all_samples():
             temp_wav = os.path.join(output_dir, f"temp_track{tracks}_speed{speed}.wav")
             wavfile.write(temp_wav, SAMPLE_RATE, audio_int16)
             
-            # Convert to MP3
+            # Convert to MP3 and clean up temp file
             output_mp3 = os.path.join(output_dir, f"MPDA-Track{tracks}-Speed{speed}.mp3")
-            audio_segment = AudioSegment.from_wav(temp_wav)
-            audio_segment.export(output_mp3, format="mp3", bitrate="128k")
-            
-            # Remove temporary WAV file
-            os.remove(temp_wav)
+            try:
+                audio_segment = AudioSegment.from_wav(temp_wav)
+                audio_segment.export(output_mp3, format="mp3", bitrate="128k")
+            finally:
+                # Remove temporary WAV file
+                if os.path.exists(temp_wav):
+                    os.remove(temp_wav)
             
             print(f"  -> Created: {os.path.basename(output_mp3)}")
     
