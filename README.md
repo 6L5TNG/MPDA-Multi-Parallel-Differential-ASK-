@@ -34,6 +34,22 @@ This repository contains the complete Python modem core (`mpda_core.py`) with a 
 | **EOT Marker**         | `0xFF` (11111111…)                                                           |
 | **Sample Rate**        | 44100 Hz                                                                     |
 
+## Supported Modes
+
+### Mode Naming & Definitions
+
+MPDA modes are identified by the notation `MPDA-<tracks>x<baud>`.
+
+* **Tracks (Parallel Tones):** The number of simultaneous audio carriers transmitting data.
+  * *More tracks = Higher throughput (sending more bits at the same time).*
+* **Baud (Symbol Rate):** The modulation speed (how many times per second the signal state changes).
+  * *Lower baud = Higher robustness against multi-path propagation delays.*
+
+**Examples:**
+
+- `MPDA-4x10` → 4 Parallel Tones running at 10 Symbols/sec.
+- `MPDA-1x5` → 1 Single Tone running at 5 Symbols/sec.
+
 ### Mode List
 
 | Mode Name  | Tracks | Symbol Rate | Raw Bit Rate | Notes                 |
@@ -127,5 +143,6 @@ Copyright (c) 2025 **6L5TNG (Kang Han) & Community Contributors**.
 * **Developer:** Kang Han (Republic of Korea)  
 * **Email:** ies0812@icloud.com  
 * **QRZ Page:** https://www.qrz.com/db/6L5TNG
+* **sigidwiki:** https://www.sigidwiki.com/wiki/MPDA
 
 PS: I'm a beginner, so contributions are welcome!
