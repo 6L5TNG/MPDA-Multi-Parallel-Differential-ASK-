@@ -1,4 +1,4 @@
-# MPDA (Multi-Parallel Differential ASK) Protocol
+# MPDA (Multi-Parallel Differential Amplitude Shift Keying) Protocol
 
 **MPDA** is a robust, narrowband digital communication protocol designed for amateur radio text transmission over HF and VHF bands. Developed by **6L5TNG**, this protocol employs **Multi-Parallel Differential Amplitude Shift Keying** to achieve reliable data transfer even in noisy channel conditions.
 
