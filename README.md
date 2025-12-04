@@ -4,19 +4,14 @@
 
 This repository contains the core Python implementation (`mpda_core.py`) of the modem engine, featuring a **Phase-Continuous Hard Keying** transmitter and a **Matched Filter (Correlation)** receiver.
 
-**Current Version: 4.1.0**
-*   Fixed synchronization timing issues for 5Hz/15Hz modes.
-*   Implemented proper de-interleaving logic for multi-track data reconstruction.
-*   Improved buffer management to prevent data loss during sync locking.
-
 ## Key Features
 
-*   **Robust Modulation:** Uses **AFSK-based Multi-tone ASK**. Unlike traditional FSK, MPDA utilizes amplitude states across multiple parallel carriers, providing high spectral efficiency.
-*   **Phase Continuity:** The transmitter generates **Phase-Continuous** waveforms to eliminate key clicks and minimize splatter, ensuring a clean signal on the air.
-*   **DSP-Based Demodulation:** The receiver utilizes **Matched Filter Correlation (Coherent Detection)**, which offers superior performance in low SNR environments compared to simple energy detection.
-*   **Adaptive Modes:** Supports multiple configurations to balance speed and reliability:
-    *   **Tracks:** 1, 4, or 8 parallel tones.
-    *   **Symbol Rate:** 5, 10, or 15 Hz (Baud).
+* **Robust Modulation:** Uses **AFSK-based Multi-tone ASK**. Unlike traditional FSK, MPDA utilizes amplitude states across multiple parallel carriers, providing high spectral efficiency.
+* **Phase Continuity:** The transmitter generates **Phase-Continuous** waveforms to eliminate key clicks and minimize splatter, ensuring a clean signal on the air.
+* **DSP-Based Demodulation:** The receiver utilizes **Matched Filter Correlation (Coherent Detection)**, which offers superior performance in low SNR environments compared to simple energy detection.
+* **Adaptive Modes:** Supports multiple configurations to balance speed and reliability:
+  * **Tracks:** 1, 4, or 8 parallel tones.
+  * **Symbol Rate:** 5, 10, or 15 Hz (Baud).
 
 ## Technical Specifications
 
@@ -31,13 +26,14 @@ This repository contains the core Python implementation (`mpda_core.py`) of the 
 | **Sample Rate** | 44100 Hz (Standard Audio) |
 
 ### Signal Structure
-1.  **Pilot Tone:** A 2200 Hz tone precedes the data burst to wake up the receiver and establish AGC/timing lock.
-2.  **Gap:** A fixed silence period (0.15s) separates the pilot and data burst.
-3.  **Preamble:** Three bytes of `0xAA` are sent for bit synchronization.
-4.  **Payload:** Text data is encoded into bit streams and mapped onto parallel frequency tracks.
-    *   **Logic 1:** High Amplitude (1.0)
-    *   **Logic 0:** Soft-Low Amplitude (0.1) - *Maintains PLL lock without losing phase.*
-5.  **Postamble:** Three bytes of `0xFF` signal the end of transmission.
+
+1. **Pilot Tone:** A 2200 Hz tone precedes the data burst to wake up the receiver and establish AGC/timing lock.
+2. **Gap:** A fixed silence period (0.15s) separates the pilot and data burst.
+3. **Preamble:** Three bytes of `0xAA` are sent for bit synchronization.
+4. **Payload:** Text data is encoded into bit streams and mapped onto parallel frequency tracks.
+   * **Logic 1:** High Amplitude (1.0)
+   * **Logic 0:** Soft-Low Amplitude (0.1) - *Maintains PLL lock without losing phase.*
+5. **Postamble:** Three bytes of `0xFF` signal the end of transmission.
 
 ## Installation
 
@@ -88,7 +84,7 @@ if char:
 
 ## License
 
-This project is open-source software.
+This project is open-source software.  
 Copyright (c) 2025 **6L5TNG (Kang Han) & Community Contributors**.
 
 ## Contact
