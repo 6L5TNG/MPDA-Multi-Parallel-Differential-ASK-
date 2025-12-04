@@ -1,64 +1,52 @@
-# MPDA (Multi-Parallel Differential Amplitude Shift Keying) Protocol
+# MPDA (Multi-Parallel Intra-Symbol Differential ASK) Protocol
 
-**MPDA** is a robust, narrowband digital communication protocol designed for amateur radio text transmission over HF and VHF bands. Developed by **6L5TNG**, this protocol employs **Multi-Parallel Differential Amplitude Shift Keying** to achieve reliable data transfer even in noisy channel conditions.
+**MPDA** is a robust, narrowband digital communication protocol designed for amateur radio text transmission over HF and VHF bands.  
+Developed by **6L5TNG**, MPDA combines **multiple parallel audio tones** with **intra-symbol differential amplitude shift keying** to deliver reliable text communication even under severe fading, QSB, and noise.
 
-This repository contains the core Python implementation (`mpda_core.py`) of the modem engine, featuring a **Phase-Continuous Hard Keying** transmitter and a **Matched Filter (Correlation)** receiver.
+This repository contains the complete Python modem core (`mpda_core.py`) with a **phase-continuous** transmitter and a **matched-filter correlation** receiver.
 
 ## Key Features
 
-* **Intra-Symbol Differential Modulation:** Unlike standard ASK which relies on absolute amplitude levels, MPDA splits each symbol into a **Reference Half (Amp 0.5)** and a **Data Half (Amp 1.0 or 0.1)**. The receiver compares these two halves, allowing for reliable decoding even under severe signal fading (QSB).
-* **Phase Continuity:** The transmitter generates **Phase-Continuous** waveforms to eliminate key clicks and minimize splatter, ensuring a clean signal on the air.
-* **DSP-Based Demodulation:** The receiver utilizes **Matched Filter Correlation (Coherent Detection)**, which offers superior performance in low SNR environments compared to simple energy detection.
-* **Adaptive Modes:** Supports multiple configurations to balance speed and reliability:
-  * **Tracks:** 1, 4, or 8 parallel tones.
-  * **Symbol Rate:** 5, 10, or 15 Hz (Baud).
+- **Intra-Symbol Differential ASK**  
+  Each symbol is split into two equal halves:  
+  - **Reference Half**: fixed 0.5 amplitude (instantaneous channel reference)  
+  - **Data Half**: 1.0 (bit 1) or 0.1 (bit 0) amplitude  
+  The receiver compares within the same symbol → outstanding fading immunity
+
+- **100% Phase-Continuous Waveform**  
+  No key clicks, minimal splatter, clean spectrum
+
+- **Coherent Matched-Filter Detection**  
+  3–6 dB better than simple energy detection
+
+- **Flexible Multi-Parallel Modes**  
+  1, 4, or 8 parallel tones × 5, 10, or 15 baud
 
 ## Technical Specifications
 
-| Parameter | Specification |
-| :--- | :--- |
-| **Modulation Type** | Multi-Parallel Differential ASK (Audio Band) |
-| **Symbol Rates** | 5 Hz, 10 Hz, 15 Hz |
-| **Parallel Tones** | **1-Track:** 1500 Hz<br>**4-Tracks:** 800, 1200, 1600, 2000 Hz<br>**8-Tracks:** 600, 800, ..., 2000 Hz (200 Hz spacing) |
-| **Pilot Tone** | 2200 Hz (Used for synchronization and channel estimation) |
-| **Sync Word** | `0xAA` (10101010) |
-| **End of Tx (EOT)** | `0xFF` (11111111) |
-| **Sample Rate** | 44100 Hz (Standard Audio) |
+| Parameter              | Specification                                                                 |
+|------------------------|-------------------------------------------------------------------------------|
+| **Modulation Type**    | Multi-Parallel Intra-Symbol Differential ASK (self-referenced 2-level)       |
+| **Symbol Rates**       | 5, 10, 15 baud                                                               |
+| **Parallel Tones**     | **1-Track:** 1500 Hz<br>**4-Track:** 800, 1200, 1600, 2000 Hz<br>**8-Track:** 600–2000 Hz (200 Hz spacing) |
+| **Pilot Tone**         | 2200 Hz (AGC wake-up & rough timing)                                        |
+| **Sync Word**          | `0xAA` (10101010…)                                                           |
+| **EOT Marker**         | `0xFF` (11111111…)                                                           |
+| **Sample Rate**        | 44100 Hz                                                                     |
 
 ## Supported Modes
 
-### Mode Naming
-
-MPDA modes are named as:
-
-> `MPDA-<tracks>x<baud>`
-
-where:
-
-- `<tracks>` is the number of parallel tones (1, 4, 8).
-- `<baud>` is the symbol rate in symbols per second (5, 10, 15).
-
-Examples:
-
-- `MPDA-4x10` → 4 tracks, 10 baud  
-- `MPDA-1x5` → 1 track, 5 baud  
-- `MPDA-8x15` → 8 tracks, 15 baud  
-
-Unless otherwise noted, **MPDA-4x10** is considered the basic/default mode.
-
-### Mode List
-
-| Mode Name  | Tracks | Symbol Rate (Baud) | Notes                 |
-|------------|:------:|:------------------:|-----------------------|
-| MPDA-1x5   |   1    |         5          | Very robust, very slow |
-| MPDA-1x10  |   1    |        10          | Robust single-track    |
-| MPDA-1x15  |   1    |        15          | Faster single-track    |
-| MPDA-4x5   |   4    |         5          | Robust multi-track     |
-| MPDA-4x10* |   4    |        10          | Default mode           |
-| MPDA-4x15  |   4    |        15          | Fast multi-track       |
-| MPDA-8x5   |   8    |         5          | Many tracks, low rate  |
-| MPDA-8x10  |   8    |        10          | High throughput        |
-| MPDA-8x15  |   8    |        15          | Maximum speed          |
+| Mode       | Tracks | Baud | Notes                     |
+|------------|--------|------|---------------------------|
+| MPDA-1x5   | 1      | 5    | Extremely robust          |
+| MPDA-1x10  | 1      | 10   | Robust single-tone        |
+| MPDA-1x15  | 1      | 15   | Fast single-tone          |
+| MPDA-4x5   | 4      | 5    | Very robust multi-tone    |
+| MPDA-4x10  | 4      | 10   | **Default / Recommended** |
+| MPDA-4x15  | 4      | 15   | Fast 4-tone               |
+| MPDA-8x5   | 8      | 5    | Maximum robustness        |
+| MPDA-8x10  | 8      | 10   | High throughput           |
+| MPDA-8x15  | 8      | 15   | Maximum speed             |
 
 \* `MPDA-4x10` is the reference mode used in most examples.
 
