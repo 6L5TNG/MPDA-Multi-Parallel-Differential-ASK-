@@ -1,6 +1,6 @@
-# MPDA (Multi-Parallel Differential ASK) Protocol
+# MPDASK (Multi-Parallel Differential ASK) Protocol
 
-**MPDA** is a robust, narrowband digital communication protocol designed for amateur radio text transmission over HF and VHF bands. Developed by **6L5TNG**, this protocol employs **Multi-Parallel Differential Amplitude Shift Keying** to achieve reliable data transfer even in noisy channel conditions.
+**MPDASK** is a robust, narrowband digital communication protocol designed for amateur radio text transmission over HF and VHF bands. Developed by **6L5TNG**, this protocol employs **Multi-Parallel Differential Amplitude Shift Keying** to achieve reliable data transfer even in noisy channel conditions.
 
 This repository contains the core Python implementation (`mpda_core.py`) of the modem engine, featuring a **Phase-Continuous Hard Keying** transmitter and a **Matched Filter (Correlation)** receiver.
 
