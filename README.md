@@ -34,19 +34,21 @@ This repository contains the complete Python modem core (`mpda_core.py`) with a 
 | **EOT Marker**         | `0xFF` (11111111…)                                                           |
 | **Sample Rate**        | 44100 Hz                                                                     |
 
-## Supported Modes
+### Mode List
 
-| Mode       | Tracks | Baud | Notes                     |
-|------------|--------|------|---------------------------|
-| MPDA-1x5   | 1      | 5    | Extremely robust          |
-| MPDA-1x10  | 1      | 10   | Robust single-tone        |
-| MPDA-1x15  | 1      | 15   | Fast single-tone          |
-| MPDA-4x5   | 4      | 5    | Very robust multi-tone    |
-| MPDA-4x10  | 4      | 10   | **Default / Recommended** |
-| MPDA-4x15  | 4      | 15   | Fast 4-tone               |
-| MPDA-8x5   | 8      | 5    | Maximum robustness        |
-| MPDA-8x10  | 8      | 10   | High throughput           |
-| MPDA-8x15  | 8      | 15   | Maximum speed             |
+| Mode Name  | Tracks | Symbol Rate | Raw Bit Rate | Notes                 |
+|------------|:------:|:-----------:|:------------:|-----------------------|
+| MPDA-1x5   |   1    |    5 Baud   |    5 bps     | Very robust, very slow |
+| MPDA-1x10  |   1    |   10 Baud   |   10 bps     | Robust single-track    |
+| MPDA-1x15  |   1    |   15 Baud   |   15 bps     | Faster single-track    |
+| MPDA-4x5   |   4    |    5 Baud   |   20 bps     | Robust multi-track     |
+| MPDA-4x10* |   4    |   10 Baud   |   40 bps     | Default mode           |
+| MPDA-4x15  |   4    |   15 Baud   |   60 bps     | Fast multi-track       |
+| MPDA-8x5   |   8    |    5 Baud   |   40 bps     | Many tracks, low rate  |
+| MPDA-8x10  |   8    |   10 Baud   |   80 bps     | High throughput        |
+| MPDA-8x15  |   8    |   15 Baud   |  120 bps     | Maximum speed          |
+
+\* `MPDA-4x10` is the reference mode used in most examples.
 
 \* `MPDA-4x10` is the reference mode used in most examples.
 
