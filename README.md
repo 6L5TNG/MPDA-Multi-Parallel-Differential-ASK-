@@ -48,9 +48,8 @@ This repository contains the complete Python modem core (`mpda_core.py`) with a 
 | MPDA-8x10  |   8    |   10 Baud   |   80 bps     | High throughput        |
 | MPDA-8x15  |   8    |   15 Baud   |  120 bps     | Maximum speed          |
 
-\* `MPDA-4x10` is the reference mode used in most examples.
-
-\* `MPDA-4x10` is the reference mode used in most examples.
+> **Note on Speed:** The raw bit rate is calculated as `Tracks × Symbol Rate`. For example, MPDA-4x10 achieves **40 bps** (4 tracks × 10 baud).  
+> \* `MPDA-4x10` is the reference mode used in most examples.
 
 ### Signal Structure & Differential Encoding
 
