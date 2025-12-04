@@ -25,6 +25,43 @@ This repository contains the core Python implementation (`mpda_core.py`) of the 
 | **End of Tx (EOT)** | `0xFF` (11111111) |
 | **Sample Rate** | 44100 Hz (Standard Audio) |
 
+## Supported Modes
+
+### Mode Naming
+
+MPDA modes are named as:
+
+> `MPDA-<tracks>x<baud>`
+
+where:
+
+- `<tracks>` is the number of parallel tones (1, 4, 8).
+- `<baud>` is the symbol rate in symbols per second (5, 10, 15).
+
+Examples:
+
+- `MPDA-4x10` → 4 tracks, 10 baud  
+- `MPDA-1x5` → 1 track, 5 baud  
+- `MPDA-8x15` → 8 tracks, 15 baud  
+
+Unless otherwise noted, **MPDA-4x10** is considered the basic/default mode.
+
+### Mode List
+
+| Mode Name  | Tracks | Symbol Rate (Baud) | Notes                 |
+|------------|:------:|:------------------:|-----------------------|
+| MPDA-1x5   |   1    |         5          | Very robust, very slow |
+| MPDA-1x10  |   1    |        10          | Robust single-track    |
+| MPDA-1x15  |   1    |        15          | Faster single-track    |
+| MPDA-4x5   |   4    |         5          | Robust multi-track     |
+| MPDA-4x10* |   4    |        10          | Default mode           |
+| MPDA-4x15  |   4    |        15          | Fast multi-track       |
+| MPDA-8x5   |   8    |         5          | Many tracks, low rate  |
+| MPDA-8x10  |   8    |        10          | High throughput        |
+| MPDA-8x15  |   8    |        15          | Maximum speed          |
+
+\* `MPDA-4x10` is the reference mode used in most examples.
+
 ### Signal Structure
 
 1. **Pilot Tone:** A 2200 Hz tone precedes the data burst to wake up the receiver and establish AGC/timing lock.
@@ -56,7 +93,7 @@ from mpda_core import MPDATransmitter
 tx = MPDATransmitter()
 
 # Generate Audio Data (float32 array)
-# Mode: 4 Parallel Tracks, 10 Hz Symbol Rate
+# Mode: 4 Parallel Tracks, 10 Hz Symbol Rate (MPDA-4x10)
 message = "CQ CQ DE 6L5TNG"
 audio_signal = tx.generate_signal(message, tracks=4, speed=10)
 
@@ -69,7 +106,7 @@ audio_signal = tx.generate_signal(message, tracks=4, speed=10)
 from mpda_core import MPDAReceiver
 
 # Initialize
-rx = MPDAReceiver(tracks=4, speed=10)
+rx = MPDAReceiver(tracks=4, speed=10)  # MPDA-4x10
 
 # Feed audio chunks (from microphone input)
 # 'chunk' should be a numpy array of float samples
