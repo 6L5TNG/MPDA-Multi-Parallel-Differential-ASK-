@@ -6,7 +6,7 @@ This repository contains the core Python implementation (`mpda_core.py`) of the 
 
 ## Key Features
 
-* **Robust Modulation:** Uses **AFSK-based Multi-tone ASK**. Unlike traditional FSK, MPDA utilizes amplitude states across multiple parallel carriers, providing high spectral efficiency.
+* **Intra-Symbol Differential Modulation:** Unlike standard ASK which relies on absolute amplitude levels, MPDA splits each symbol into a **Reference Half (Amp 0.5)** and a **Data Half (Amp 1.0 or 0.1)**. The receiver compares these two halves, allowing for reliable decoding even under severe signal fading (QSB).
 * **Phase Continuity:** The transmitter generates **Phase-Continuous** waveforms to eliminate key clicks and minimize splatter, ensuring a clean signal on the air.
 * **DSP-Based Demodulation:** The receiver utilizes **Matched Filter Correlation (Coherent Detection)**, which offers superior performance in low SNR environments compared to simple energy detection.
 * **Adaptive Modes:** Supports multiple configurations to balance speed and reliability:
@@ -62,14 +62,22 @@ Unless otherwise noted, **MPDA-4x10** is considered the basic/default mode.
 
 \* `MPDA-4x10` is the reference mode used in most examples.
 
-### Signal Structure
+### Signal Structure & Differential Encoding
+
+MPDA ensures reliability through a structured transmission sequence:
 
 1. **Pilot Tone:** A 2200 Hz tone precedes the data burst to wake up the receiver and establish AGC/timing lock.
 2. **Gap:** A fixed silence period (0.15s) separates the pilot and data burst.
 3. **Preamble:** Three bytes of `0xAA` are sent for bit synchronization.
-4. **Payload:** Text data is encoded into bit streams and mapped onto parallel frequency tracks.
-   * **Logic 1:** High Amplitude (1.0)
-   * **Logic 0:** Soft-Low Amplitude (0.1) - *Maintains PLL lock without losing phase.*
+4. **Payload (Differential Encoding):**  
+   Each symbol duration is divided into two halves:
+   * **First Half (Reference):** Transmitted at **0.5** amplitude. This establishes a local baseline for the current channel condition.
+   * **Second Half (Data):** Transmitted at either **1.0** or **0.1** amplitude.
+     * **Logic 1:** High Amplitude (1.0) – *Louder than reference.*
+     * **Logic 0:** Soft-Low Amplitude (0.1) – *Quieter than reference (maintains PLL lock).*
+   
+   *The receiver decodes bits by comparing the energy of the Data half against the Reference half. This makes MPDA highly resistant to amplitude fluctuations caused by fading.*
+
 5. **Postamble:** Three bytes of `0xFF` signal the end of transmission.
 
 ## Installation
