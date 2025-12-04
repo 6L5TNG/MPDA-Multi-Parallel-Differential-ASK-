@@ -139,10 +139,12 @@ Copyright (c) 2025 **6L5TNG (Kang Han) & Community Contributors**.
 
 ## Contact
 
-* **Callsign:** 6L5TNG  
-* **Developer:** Kang Han (Republic of Korea)  
-* **Email:** ies0812@icloud.com  
-* **QRZ Page:** https://www.qrz.com/db/6L5TNG
-* **sigidwiki:** https://www.sigidwiki.com/wiki/MPDA
+**Developer:** Kang Han (6L5TNG) from Republic of Korea 🇰🇷
 
-PS: I'm a beginner, so contributions are welcome!
+[![Email](https://img.shields.io/badge/Email-ies0812%40icloud.com-blue?style=flat-square&logo=icloud&logoColor=white)](mailto:ies0812@icloud.com)
+[![QRZ](https://img.shields.io/badge/QRZ.com-6L5TNG-green?style=flat-square&logo=rss&logoColor=white)](https://www.qrz.com/db/6L5TNG)
+[![SigIDWiki](https://img.shields.io/badge/Wiki-MPDA_Protocol-orange?style=flat-square&logo=wikipedia&logoColor=white)](https://www.sigidwiki.com/wiki/MPDA)
+
+<br>
+
+*PS: I'm a beginner, so contributions are always welcome!*
